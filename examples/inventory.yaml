@@ -1,0 +1,41 @@
+inventory:
+- type: MDF
+  dimensions:
+    length: 2800
+    width: 2070
+    thickness: 16
+- type: MDF
+  dimensions:
+    length: 2800
+    width: 2070
+    thickness: 16
+- type: MDF
+  dimensions:
+    length: 2800
+    width: 2070
+    thickness: 16
+- type: MDF
+  dimensions:
+    length: 2800
+    width: 2070
+    thickness: 10
+- type: MDF
+  dimensions:
+    length: 2800
+    width: 2070
+    thickness: 10
+- type: MDF
+  dimensions:
+    length: 1200
+    width: 800
+    thickness: 16
+- type: Plywood
+  dimensions:
+    length: 600
+    width: 400
+    thickness: 16
+- type: Plywood
+  dimensions:
+    length: 600
+    width: 400
+    thickness: 16

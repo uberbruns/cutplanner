@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cutting Layout Viewer</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="layout-container">
+        <div class="main-content">
+            <div id="error-message" class="error-message" style="display: none;"></div>
+
+            <div id="sheets-container">
+                <!-- Sheet visualizations will be inserted here -->
+            </div>
+        </div>
+
+        <aside id="inspector-panel" class="inspector-panel">
+            <div class="inspector-content">
+
+                <!-- Project Panel -->
+                <div class="inspector-section">
+                    <div class="inspector-section-header" data-section="config">
+                        <span class="inspector-section-title">Project</span>
+                        <span class="inspector-section-toggle"><span class="material-icons">expand_more</span></span>
+                    </div>
+                    <div class="inspector-section-content" id="inspector-config-content">
+                        <div class="inspector-detail-item">
+                            <span class="inspector-label">SCAD File</span>
+                            <span id="config-scad-file" class="inspector-value">Loading...</span>
+                        </div>
+                        <div class="inspector-detail-item">
+                            <span class="inspector-label">Inventory</span>
+                            <span id="config-inventory-file" class="inspector-value">Loading...</span>
+                        </div>
+                        <div class="inspector-detail-item">
+                            <span class="inspector-label">Kerf</span>
+                            <span id="config-kerf" class="inspector-value">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Panel Panel -->
+                <div class="inspector-section">
+                    <div class="inspector-section-header" data-section="selected">
+                        <span class="inspector-section-title">Selected Panel</span>
+                        <span class="inspector-section-toggle"><span class="material-icons">expand_more</span></span>
+                    </div>
+                    <div class="inspector-section-content" id="inspector-selected-content">
+                        <div id="inspector-empty-state" class="inspector-empty-state">
+                            <p>Click on a panel to inspect it</p>
+                        </div>
+                        <div id="inspector-panel-details" class="inspector-panel-details" style="display: none;">
+                            <div class="inspector-details">
+                                <div class="inspector-detail-item">
+                                    <span class="inspector-label">Name</span>
+                                    <span id="inspector-panel-name" class="inspector-value"></span>
+                                </div>
+                                <div class="inspector-detail-item">
+                                    <span class="inspector-label">Dimensions</span>
+                                    <span id="inspector-panel-dimensions" class="inspector-value"></span>
+                                </div>
+                                <div class="inspector-detail-item">
+                                    <span class="inspector-label">Thickness</span>
+                                    <span id="inspector-panel-thickness" class="inspector-value"></span>
+                                </div>
+                                <div class="inspector-detail-item">
+                                    <span class="inspector-label">ID</span>
+                                    <span id="inspector-panel-id" class="inspector-value"></span>
+                                </div>
+                            </div>
+                            <div class="inspector-panel-actions">
+                                <div id="inspector-include-btn" class="inspector-action-btn include-btn" title="Include in layout">
+                                    <span class="material-icons">vertical_align_bottom</span>
+                                    <span class="action-label">Include in Layout</span>
+                                </div>
+                                <div id="inspector-done-btn" class="inspector-action-btn done-btn" title="Mark as done">
+                                    <span class="material-icons">check_circle</span>
+                                    <span class="action-label">Mark as Done</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panels List Panel -->
+                <div class="inspector-section">
+                    <div class="inspector-section-header" data-section="panels">
+                        <span class="inspector-section-title">Panels</span>
+                        <span class="inspector-section-toggle"><span class="material-icons">expand_more</span></span>
+                    </div>
+                    <div class="inspector-section-content" id="inspector-panels-content">
+                        <div id="panels-list-container">
+                            <div class="bulk-actions">
+                                <a id="select-all-panels-btn">Include All</a>
+                                <a id="include-open-panels-btn">Include Open</a>
+                                <a id="deselect-all-panels-btn">Exclude All</a>
+                                <a id="reload-panels-btn">Reload</a>
+                            </div>
+                            <table id="panels-table" class="inspector-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Size (cm)</th>
+                                        <th>Thick (mm)</th>
+                                        <th style="width: 80px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="panels-table-body">
+                                    <!-- Panel rows will be inserted here -->
+                                </tbody>
+                            </table>
+                            <div id="panels-summary" class="inspector-summary">
+                                <!-- Summary will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sheets & Inventory Panel -->
+                <div class="inspector-section">
+                    <div class="inspector-section-header" data-section="sheets">
+                        <span class="inspector-section-title">Inventory</span>
+                        <span class="inspector-section-toggle"><span class="material-icons">expand_more</span></span>
+                    </div>
+                    <div class="inspector-section-content" id="inspector-sheets-content">
+                        <div class="bulk-actions">
+                            <a id="select-all-inventory-btn">Include All</a>
+                            <a id="deselect-all-inventory-btn">Exclude All</a>
+                            <a id="reload-inventory-btn">Reload</a>
+                        </div>
+                        <table id="sheets-table" class="inspector-table">
+                            <thead>
+                                <tr>
+                                    <th>Label</th>
+                                    <th>Size (cm)</th>
+                                    <th>Thick (mm)</th>
+                                    <th style="width: 60px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sheets-table-body">
+                                <!-- Sheet and inventory rows will be inserted here -->
+                            </tbody>
+                        </table>
+                        <div id="sheets-summary" class="inspector-summary">
+                            <!-- Sheets summary will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Panel -->
+                <div class="inspector-section">
+                    <div class="inspector-section-header" data-section="settings">
+                        <span class="inspector-section-title">Settings</span>
+                        <span class="inspector-section-toggle"><span class="material-icons">expand_more</span></span>
+                    </div>
+                    <div class="inspector-section-content" id="inspector-actions-content">
+                        <div class="inspector-actions-buttons">
+                            <button id="refresh-button" class="btn btn-primary btn-small">Refresh Layout</button>
+                            <button id="clear-done-button" class="btn btn-secondary btn-small">Clear Local Storage</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+    </div>
+
+    <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

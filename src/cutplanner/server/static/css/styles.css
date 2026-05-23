@@ -1,0 +1,628 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    overflow: hidden;
+}
+
+/* Layout container */
+.layout-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    width: calc(100vw - 500px);
+}
+
+
+/* Header */
+header {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: #333;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+
+.btn-secondary {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Error message */
+.error-message {
+    background: #e74c3c;
+    color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+/* Unpacked panels warning */
+.unpacked-section {
+    background: #fff3cd;
+    border: 3px solid #ff6b35;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.unpacked-section h2 {
+    color: #d63031;
+    margin-top: 0;
+}
+
+.unpacked-warning {
+    color: #856404;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.unpacked-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.unpacked-table th {
+    background: #ff6b35;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.unpacked-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.panel-id-cell {
+    font-family: monospace;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Summary section */
+.summary {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.summary div {
+    padding: 10px;
+}
+
+.summary strong {
+    color: #666;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Sheet container */
+.sheet-container {
+    background: white;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+.sheet-header {
+    margin-bottom: 15px;
+}
+
+.sheet-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.sheet-info {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* SVG and panels */
+svg {
+    border: 2px solid #333;
+    background: #fafafa;
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.panel {
+    fill: #4a90e2;
+    stroke: #2c5aa0;
+    stroke-width: 2;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.panel.selected {
+    stroke-width: 10;
+}
+
+.panel.done {
+    fill: #27ae60;
+    stroke: #229954;
+    opacity: 0.9;
+}
+
+.panel-text {
+    fill: white;
+    font-size: 36px;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.dimension-text {
+    fill: #333;
+    font-size: 30px;
+    pointer-events: none;
+}
+
+/* Inspector Panel */
+.inspector-panel {
+    width: 500px;
+    background: #2c3e50;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1000;
+}
+
+.inspector-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+}
+
+/* Inspector Sections */
+.inspector-section {
+    border-bottom: 1px solid #4a5568;
+}
+
+.inspector-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px;
+    cursor: pointer;
+    user-select: none;
+    background: rgba(0,0,0,0.2);
+    border-bottom: 1px solid #4a5568;
+}
+
+
+.inspector-section-title {
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.inspector-section-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.inspector-section-toggle .material-icons {
+    font-size: 20px;
+    transition: transform 0.2s ease;
+}
+
+.inspector-section.collapsed .inspector-section-toggle .material-icons {
+    transform: rotate(-90deg);
+}
+
+.inspector-section.collapsed .inspector-section-header {
+    border-bottom: none;
+}
+
+.inspector-section-content {
+    padding: 15px 20px;
+    overflow: hidden;
+}
+
+.inspector-section.collapsed .inspector-section-content {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.inspector-empty-state {
+    text-align: center;
+    padding: 20px;
+    color: #95a5a6;
+}
+
+.inspector-empty-state p {
+    margin: 0;
+    font-size: 13px;
+}
+
+/* Inspector Tables */
+.inspector-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 10px;
+    border: 1px solid #4a5568;
+}
+
+.inspector-table thead tr {
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid #4a5568;
+}
+
+.inspector-table thead th {
+    padding: 8px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.inspector-table tbody tr {
+    cursor: pointer;
+    border-bottom: 1px solid #4a5568;
+}
+
+.inspector-table tbody td {
+    padding: 8px;
+}
+
+.inspector-table tbody tr.selected {
+    background: rgba(52, 152, 219, 0.3);
+}
+
+.inspector-table .sheet-row {
+    font-weight: 500;
+}
+
+.inspector-table .inventory-row {
+    /* No dimming for unused inventory */
+}
+
+.status-icon {
+    text-align: center;
+    font-size: 13px;
+}
+
+.status-icon.done {
+    color: #27ae60;
+}
+
+.status-icon.pending {
+    color: #95a5a6;
+}
+
+.status-icon.unpacked {
+    color: #e74c3c;
+}
+
+/* Inspector Summary */
+.inspector-summary {
+    margin-top: 15px;
+    padding: 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.inspector-summary div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.inspector-summary div:last-child {
+    margin-bottom: 0;
+}
+
+.inspector-summary strong {
+    color: #95a5a6;
+}
+
+.inspector-details {
+    margin-bottom: 20px;
+}
+
+/* Inspector Panel Action Buttons */
+.inspector-panel-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.inspector-action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.inspector-action-btn .material-icons {
+    font-size: 20px;
+}
+
+.inspector-action-btn .action-label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.inspector-action-btn.include-btn {
+    background: rgba(255,255,255,0.1);
+    color: #95a5a6;
+}
+
+.inspector-action-btn.include-btn.active {
+    background: #3498db;
+    color: white;
+}
+
+.inspector-action-btn.include-btn.error {
+    background: #e74c3c;
+    color: white;
+}
+
+.inspector-action-btn.done-btn {
+    background: rgba(255,255,255,0.1);
+    color: #95a5a6;
+}
+
+.inspector-action-btn.done-btn.active {
+    background: #27ae60;
+    color: white;
+}
+
+.inspector-detail-item {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.inspector-label {
+    font-size: 13px;
+    color: #95a5a6;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.inspector-value {
+    font-size: 16px;
+    color: #ecf0f1;
+    word-wrap: break-word;
+}
+
+#inspector-panel-dimensions,
+#inspector-panel-name {
+    font-size: 48px;
+}
+
+.inspector-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #4a5568;
+}
+
+.inspector-actions-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inspector-actions-buttons .btn {
+    width: 100%;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.checkbox-label span {
+    cursor: pointer;
+}
+
+/* Bulk actions */
+.bulk-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.bulk-actions a {
+    color: #3498db;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 13px;
+}
+
+
+/* Excluded items styling */
+.inspector-table tbody tr.excluded {
+    /* No visual change - state indicated by icon only */
+}
+
+.inspector-table tbody tr.excluded:hover {
+    /* No visual change - state indicated by icon only */
+}
+
+.inspector-table input[type="checkbox"] {
+    cursor: pointer;
+}
+
+/* Icon button styles */
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 0 2px;
+    user-select: none;
+}
+
+.icon-btn .material-icons {
+    font-size: 20px;
+}
+
+/* Done button */
+.icon-btn.done-btn {
+    background: rgba(255,255,255,0.1);
+    color: #95a5a6;
+}
+
+.icon-btn.done-btn.active {
+    background: #27ae60;
+    color: white;
+}
+
+/* Include button */
+.icon-btn.include-btn {
+    background: rgba(255,255,255,0.1);
+    color: #95a5a6;
+}
+
+.icon-btn.include-btn.active {
+    background: #3498db;
+    color: white;
+}
+
+.icon-btn.include-btn.error {
+    background: #e74c3c;
+    color: white;
+}
+
+/* Inventory icon states */
+.icon-btn.include-btn.inventory-used {
+    background: #27ae60;
+    color: white;
+}
+
+.icon-btn.include-btn.inventory-unused {
+    background: #f39c12;
+    color: white;
+}
+
+.actions-cell {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .inspector-panel {
+        width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .layout-container {
+        flex-direction: column;
+    }
+
+    .inspector-panel {
+        width: 100%;
+        height: 50vh;
+        transform: translateY(100%);
+    }
+
+    .inspector-panel.open {
+        transform: translateY(0);
+    }
+
+    .config-display {
+        grid-template-columns: 1fr;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+}
