@@ -11,7 +11,7 @@ dependencies = [
 ]
 
 [project.scripts]
-cutplanner = "cutplanner.server.app:main"
+cutplanner = "cutplanner.cli:main"
 
 [build-system]
 requires = ["hatchling"]

@@ -10,6 +10,7 @@ from cutplanner.models import Panel
 from cutplanner.inventory import InventoryItem, generate_inventory_id, load_inventory_from_yaml
 from cutplanner.openscad import render_openscad
 from cutplanner.parser import parse_panels
+from cutplanner.bom import load_bom_from_yaml
 from cutplanner.packer import pack_panels_from_inventory, Sheet, PlacedPanel
 
 STATIC_FOLDER = Path(__file__).parent / 'static'
@@ -125,8 +126,11 @@ def get_inventory():
 @app.route('/api/bom')
 def get_bom():
     try:
-        output = render_openscad(config['scad_file'])
-        panels = parse_panels(output)
+        input_file = config['scad_file']
+        if input_file.endswith('.yaml') or input_file.endswith('.yml'):
+            panels = load_bom_from_yaml(input_file)
+        else:
+            panels = parse_panels(render_openscad(input_file))
         return jsonify({
             "panels": [panel_to_dict(panel) for panel in panels]
         })
@@ -185,10 +189,11 @@ def main():
 Examples:
   %(prog)s design.scad inventory.yaml
   %(prog)s design.scad inventory.yaml --kerf 3
-  %(prog)s design.scad inventory.yaml --port 8080
+  %(prog)s bom.yaml inventory.yaml
         """
     )
-    parser.add_argument("scad_file", help="Path to the OpenSCAD file")
+    parser.add_argument("scad_file", metavar="input_file",
+                        help="Path to the OpenSCAD file (.scad) or BOM file (.yaml)")
     parser.add_argument("inventory_file", help="Path to the inventory YAML file")
     parser.add_argument(
         "--kerf",
