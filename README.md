@@ -55,7 +55,7 @@ cutplanner design.scad inventory.yaml --kerf 3
 cutplanner design.scad inventory.yaml --port 8080
 ```
 
-Open `http://localhost:5000` in your browser after starting the server.
+Open `http://localhost:16080` in your browser after starting the server.
 
 Individual panels can be marked as done. Done state is persisted in the browser's `localStorage`.
 

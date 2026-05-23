@@ -24,6 +24,7 @@ config = {
 }
 
 
+
 def inventory_item_to_dict(item: InventoryItem) -> dict:
     return {
         "id": item.id,
@@ -199,9 +200,14 @@ Examples:
     parser.add_argument(
         "--port",
         type=int,
-        default=5000,
+        default=16080,
         metavar="PORT",
-        help="Server port (default: 5000)"
+        help="Server port (default: 16080)"
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Enable Flask debug mode"
     )
 
     args = parser.parse_args()
@@ -227,7 +233,7 @@ Examples:
     print(f"\nServer running at http://localhost:{args.port}")
     print(f"Press Ctrl+C to stop\n")
 
-    app.run(host='0.0.0.0', port=args.port, debug=True)
+    app.run(host='0.0.0.0', port=args.port, debug=args.debug)
 
 
 if __name__ == "__main__":

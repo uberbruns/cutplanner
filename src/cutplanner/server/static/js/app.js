@@ -16,6 +16,8 @@ import {
     toggleAllInventory
 } from './panel-state.js';
 
+const dim = mm => Math.round(mm / 10 * 1000) / 1000;
+
 // Track currently selected panel
 let selectedPanel = null;
 
@@ -190,7 +192,7 @@ function populateSheetsAndInventoryTable() {
 
     // Iterate through inventory and show usage status
     inventoryData.forEach((item) => {
-        const size = `${(item.length / 10)} × ${(item.width / 10)}`;
+        const size = `${dim(item.length)} × ${dim(item.width)}`;
         const usage = usedInventory.get(item.id);
         const isIgnored = isInventoryIgnored(item.id);
         const isIncluded = !isIgnored;
@@ -304,7 +306,7 @@ function populatePanelsTable() {
         return `
             <tr data-panel-id="${panel.id}" class="${excludedClass} ${selectedClass}">
                 <td>${panel.name}</td>
-                <td>${(panel.width / 10)} × ${(panel.length / 10)}</td>
+                <td>${dim(panel.width)} × ${dim(panel.length)}</td>
                 <td>${panel.thickness}</td>
                 <td class="actions-cell">
                     <div class="icon-btn include-btn ${includeActiveClass}" data-panel-id="${panel.id}" data-action="include" title="${isUnpacked && isIncluded ? 'Cannot be placed - insufficient inventory' : 'Include in layout'}">
@@ -417,7 +419,7 @@ function updateSheetsSummary() {
     const summaryHtml = `
         <div><strong>Total Sheets:</strong> <span>${totalSheets}</span></div>
         <div><strong>Panels Placed:</strong> <span>${totalPanelsPlaced}</span></div>
-        <div><strong>Avg. Utilization:</strong> <span>${avgUtilization}%</span></div>
+        <div><strong>Avg. Utilization:</strong> <span>${Math.round(avgUtilization * 10) / 10}%</span></div>
     `;
 
     document.getElementById('sheets-summary').innerHTML = summaryHtml;
@@ -448,7 +450,7 @@ function showPanelDetails(panel) {
     // Update inspector display
     document.getElementById('inspector-panel-name').textContent = panel.name;
     document.getElementById('inspector-panel-id').textContent = panel.id;
-    document.getElementById('inspector-panel-dimensions').textContent = `${(panel.width / 10)} cm × ${(panel.length / 10)} cm`;
+    document.getElementById('inspector-panel-dimensions').textContent = `${dim(panel.width)} cm × ${dim(panel.length)} cm`;
     document.getElementById('inspector-panel-thickness').textContent = `${panel.thickness} mm`;
 
     // Update action button states

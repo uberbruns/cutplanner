@@ -4,6 +4,8 @@
 
 import { isPanelDone } from './panel-state.js';
 
+const dim = mm => Math.round(mm / 10 * 1000) / 1000;
+
 /**
  * Render unpacked panels warning section
  * @param {Array} unpackedPanels - Array of panel objects that couldn't be placed
@@ -17,7 +19,7 @@ export function renderUnpackedPanels(unpackedPanels) {
     const rows = unpackedPanels.map(panel => `
         <tr>
             <td>${panel.name}</td>
-            <td>${(panel.width / 10)} cm × ${(panel.length / 10)} cm</td>
+            <td>${dim(panel.width)} cm × ${dim(panel.length)} cm</td>
             <td>${panel.thickness} mm</td>
             <td class="panel-id-cell">${panel.id}</td>
         </tr>
@@ -65,7 +67,7 @@ export function renderSummary(summary, sheets) {
             <div><strong>Total Sheets:</strong> ${summary.total_sheets}</div>
             <div><strong>Total Panels:</strong> ${summary.total_panels_placed}</div>
             <div><strong>Thickness:</strong> ${thickness} mm</div>
-            <div><strong>Average Utilization:</strong> ${avgUtilization}%</div>
+            <div><strong>Average Utilization:</strong> ${Math.round(avgUtilization * 10) / 10}%</div>
         </div>
     `;
 }
@@ -113,7 +115,7 @@ function createPanelRect(placedPanel, panelId) {
              data-stable-id="${panel.id}"
              clip-path="url(#panel-clip-${panelId})">
             <title>${panel.name}
-${(panelWidth / 10)} cm × ${(panelHeight / 10)} cm</title>
+${dim(panelWidth)} cm × ${dim(panelHeight)} cm</title>
         </use>
     `;
 }
@@ -150,7 +152,7 @@ function createPanelText(placedPanel) {
               y="${textY + 45}"
               text-anchor="middle"
               transform="rotate(${rotation} ${textX} ${textY})">
-            ${(panelWidth / 10)} × ${(panelHeight / 10)} cm
+            ${dim(panelWidth)} × ${dim(panelHeight)} cm
         </text>
     `;
 }
@@ -195,10 +197,10 @@ export function renderSheet(sheet, startPanelId) {
             <div class="sheet-header">
                 <div class="sheet-title">${sheet.label}</div>
                 <div class="sheet-info">
-                    Size: ${(sheet.width / 10)} cm × ${(sheet.height / 10)} cm |
+                    Size: ${dim(sheet.width)} cm × ${dim(sheet.height)} cm |
                     Panels: ${sheet.placed_panels.length} |
                     Utilization: ${sheet.utilization_percent}% |
-                    Area used: ${areaUsed} m²
+                    Area used: ${Math.round(areaUsed * 1000) / 1000} m²
                 </div>
             </div>
             <svg width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${sheet.width} ${sheet.height}">

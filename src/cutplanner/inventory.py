@@ -17,11 +17,9 @@ class InventoryItem:
 
     @property
     def label(self) -> str:
-        """Compute label from dimensions and type."""
         length_cm = self.length / 10
         width_cm = self.width / 10
-        thickness_mm = self.thickness
-        return f"{self.type} {length_cm}x{width_cm}cm - {thickness_mm}mm"
+        return f"{self.type} {length_cm:g}x{width_cm:g}cm - {self.thickness:g}mm"
 
     def area_m2(self) -> float:
         """Calculate area in square meters."""
