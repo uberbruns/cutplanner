@@ -12,16 +12,25 @@ A web-based tool for generating cutting layouts for sheet material from OpenSCAD
 
 ## Installation
 
-Run directly without installation using [uvx](https://docs.astral.sh/uv/):
+**Run directly** without installation using [uvx](https://docs.astral.sh/uv/):
 
 ```sh
 uvx --from git+https://github.com/uberbruns/cutplanner cutplanner design.scad inventory.yaml
 ```
 
-Or install into an environment:
+**After cloning:**
 
 ```sh
-uv pip install git+https://github.com/uberbruns/cutplanner
+git clone https://github.com/uberbruns/cutplanner
+cd cutplanner
+uv sync
+uv run cutplanner design.scad inventory.yaml
+```
+
+**Install globally via [mise](https://mise.jdx.dev/):**
+
+```sh
+mise use -g pipx:uberbruns/cutplanner
 ```
 
 ## Usage
@@ -52,10 +61,16 @@ Individual panels can be marked as done. Done state is persisted in the browser'
 
 ## OpenSCAD integration
 
-Your OpenSCAD file must emit panel data via `echo()` statements during rendering. cutplanner parses the OpenSCAD stderr output and extracts all lines containing a JSON object in the following format:
+Your OpenSCAD file must emit panel data via `echo()` statements during rendering. cutplanner parses the OpenSCAD stderr output and extracts all lines containing a JSON object. Because OpenSCAD requires escaping in string literals, the typical pattern looks like this:
 
 ```openscad
-echo({"name": "Panel1", "length": 800, "width": 600, "thickness": 16});
+echo(str("{\"name\":\"", name, "\",\"length\":", length, ",\"width\":", width, ",\"thickness\":", thickness, "}"));
+```
+
+Which produces a line in the OpenSCAD console like:
+
+```
+ECHO: "{"name":"Aside/Front","material":"Default","depth":7,"length":954,"width":312,"thickness":16}"
 ```
 
 | Field       | Type    | Required | Description          |

@@ -9,7 +9,10 @@ __pycache__/
 dist/
 build/
 
+# VS Code
+.vscode/
+
 # AI
-.claude/
-.cursor/
+.claude/settings.local.json
+.cursor/settings.json
 .copilot/
